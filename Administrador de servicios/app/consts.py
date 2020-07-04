@@ -1,0 +1,7 @@
+TASK_CREATED = "Tarea creada"
+USER_CREATED = "Usuario Registrado con exito"
+LOGIN_CORRECT = "Usuario autenticado exitosamente"
+ERROR_LOGIN = "Usuario o Contraseña invalidos"
+LOGOUT = "Cerraste sesion exitosamente"
+TASK_UPDATED = "Tarea actualizada correctamente"
+TASK_DELETE = "Tarea eliminada correctamente"

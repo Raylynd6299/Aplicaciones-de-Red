@@ -1,0 +1,43 @@
+{%extends 'layout.html'%}
+
+{%block container%}
+    <div class="d-inline-block">
+        <h2>Lista de Servidores</h2>
+        <br>
+        <br>
+    </div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Servidor</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Abrir Panel</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td><p>TFTP</p></td>
+                    <td>Realizar respaldo de configuracion de routers</td>
+                    <td>
+                        <a href="{{url_for('page.tftp')}}" class="btn btn-primary">Abrir</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>DHCP</p></td>
+                    <td>Configurar y Administrar el servicio</td>
+                    <td>
+                        <a href="{{url_for('page.dhcp')}}" class="btn btn-primary">Abrir</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>DNS</p></td>
+                    <td>Configurar y Administrar el servicio</td>
+                    <td>
+                        <a href="{{url_for('page.dns')}}" class="btn btn-primary">Abrir</a>
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+    
+{%endblock%}

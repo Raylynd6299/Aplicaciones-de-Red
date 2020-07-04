@@ -1,0 +1,68 @@
+{%extends 'layout.html'%}
+        {%block container%}
+        {{super()}}
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <h1 style="text-align: center;">TFTP</h1>
+        <div class="card", style="padding: 20px">
+            <div class="card-body">
+                <h3 class="card-title">Panel de Control</h3>
+                <p class="card-text">
+                    Administracion de los servicios
+                </p>
+            </div>
+            {%if current_user.is_authenticated %}            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Start Service</th>
+                        <th scope="col">Stop Service</th>
+                        <th scope="col">Restart Service</th>
+                        <th scope="col">Check Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td><a href="{{url_for('page.start_servers',type = 0)}}" class="btn btn-primary"><i class="fas fa-play"></i></a></td>
+                            <td><a href="{{url_for('page.stop_servers',type = 0)}}" class="btn btn-primary"><i class="fas fa-stop"></i></a></td>
+                            <td><a href="{{url_for('page.restart_servers',type = 0)}}" class="btn btn-primary"><i class="fas fa-redo-alt"></i></a></td>
+                            <td><a href="{{url_for('page.status_servers',type = 0)}}" class="btn btn-primary"><i class="fas fa-eye"></i></a></td>
+                        </tr>
+                </tbody>
+            </table>
+            {%endif%}
+            </div>
+        <div class="card", style="padding: 20px">
+            {%if on == 0%}
+                <div class="card-body">
+                    <h3 class="card-title">Routers</h3>
+                    <p class="card-text">Presione ejecutar para realizar los backups</p>
+                    <p style="color: red;">Esperando Inicio</p>
+                    <p class="card-text">Configuraciones Antiguas</p>
+                    {%for back in backs%}
+                        <p><a href="{{url_for('page.get_backup',name = back)}}" class="btn btn-dark"><i>{{back}}</i></a></p>
+                    {%endfor%}
+                </div>
+                <form action="" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <button type="submit" class="btn btn-primary" name="buttom">Ejecutar</button>
+                    
+                </form>
+                <br>
+            {%else%}
+                <div class="card-body">
+                    <h3 class="card-title">Routers</h3>
+                    <p class="card-text">
+                        Los Routers a los que se le realizo Backup son:
+                        {%for back in backs%}
+                            <p><a href="{{url_for('page.get_backup',name = back)}}" class="btn btn-dark"><i>{{back}}</i></a></p>
+                        {%endfor%}
+                    </p>
+                </div>
+            {%endif%}
+            {%if current_user.is_authenticated %}
+            <a href="{{url_for('page.servers')}}" class="btn btn-primary">Regresar</a>
+            {%endif%}
+        </div>
+        
+
+    {%endblock%}

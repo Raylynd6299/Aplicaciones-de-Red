@@ -1,0 +1,24 @@
+{%extends 'bootstrap/base.html'%}
+
+{% block title%}
+    Error 404
+{% endblock %}
+
+{% block navbar%}
+
+{% endblock %}
+
+{% block content%}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>404 Not Found</h2>
+                <p>
+                    Lo sentimos, un error ha ocurrido.
+                    Pagina no encontrada
+                </p>
+                <img src="{{url_for('static',filename='imagenes/4040.jpg')}}" alt="RAY" class="card-img-top">
+            </div>
+        </div>
+    </div>
+{% endblock %}

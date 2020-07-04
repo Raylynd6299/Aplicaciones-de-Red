@@ -1,0 +1,155 @@
+{%extends 'layout.html'%}
+{%from 'helpers/_forms.html' import render_field%}
+        {%block container%}
+        {{super()}}
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <h1 style="text-align: center;">DNS</h1>
+        <div class="card", style="padding: 20px">
+            <div class="card-body">
+                <h3 class="card-title">Panel de Control</h3>
+                <p class="card-text">
+                    Administracion de los servicios
+                </p>
+            </div>
+            {%if current_user.is_authenticated %}            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Start Service</th>
+                        <th scope="col">Stop Service</th>
+                        <th scope="col">Restart Service</th>
+                        <th scope="col">Check Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td><a href="{{url_for('page.start_servers',type = 2)}}" class="btn btn-primary"><i class="fas fa-play"></i></a></td>
+                            <td><a href="{{url_for('page.stop_servers',type = 2)}}" class="btn btn-primary"><i class="fas fa-stop"></i></a></td>
+                            <td><a href="{{url_for('page.restart_servers',type = 2)}}" class="btn btn-primary"><i class="fas fa-redo-alt"></i></a></td>
+                            <td><a href="{{url_for('page.status_servers',type = 2)}}" class="btn btn-primary"><i class="fas fa-eye"></i></a></td>
+                        </tr>
+                </tbody>
+            </table>
+            {%endif%}
+        </div>
+        <div class="card", style="padding: 20px">
+            <div class="card-body">
+                <h3 class="card-title">Proceso de Configuracion</h3>
+                <p class="card-text">
+                    Administraremos el Servidor DNS Primario <br>
+                </p>
+                <p class="card-text">Seguiremos el siguiente proceso </p>
+
+                <ul class="list-group">
+                    <a  href="{{url_for('page.dns_gest',paso = 0)}}"  class="list-group-item list-group-item-action {%if step >= 0%}active{%endif%}">Configurar de que ips aceptamos peticiones</a>
+                    <a  href="{{url_for('page.dns_gest',paso = 1)}}"  class="list-group-item list-group-item-action {%if step >= 1%}active{%endif%}">Crear configuracion de zona directa e inversa</a>
+                    <a  href="{{url_for('page.dns_gest',paso = 2)}}"  class="list-group-item list-group-item-action {%if step >= 2%}active{%endif%}">Configurar Zona directa e inversa</a>
+                </ul>
+                
+            </div>
+        </div>
+        {%if step == 0%}
+            <div class="card", style="padding: 20px">
+                <div class="card-body">
+                    <h3 class="card-title">IP's Confiables</h3>
+                    <p class="card-text">
+                        Agregue las ips de las maquinas de las que quiere aceptar peticiones dns
+                    </p>
+                </div>
+                {%if current_user.is_authenticated %}            
+                <form action="{{url_for('page.dns_gest',paso = 0)}}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <div class="row form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            {{ render_field(form_trus.ip, class='form-control',placeholder='IP confiable')}}
+                        </div>
+                    </div>                   
+                    <button type="submit" class="btn btn-primary" name="buttom">Guardar</button>    
+                </form>
+                <a href="{{url_for('page.dns_gest',paso = 1)}}" class="btn btn-secondary">Siguiente Paso</a>
+                {%endif%}
+            </div>
+            
+        {%endif%}
+
+        {%if step == 1%}
+            <div class="card", style="padding: 20px">
+                <div class="card-body">
+                    <h3 class="card-title">Dominio</h3>
+                    <p class="card-text">
+                        Agregue el Dominio al que respondera el servidor
+                    </p>
+                </div>
+                {%if current_user.is_authenticated %}            
+                <form action="{{url_for('page.dns_gest',paso = 1)}}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <div class="row form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            {{ render_field(form_dom.dominio, class='form-control',placeholder='Ejemplo: example.com')}}
+                        </div>
+                    </div>                   
+                    <button type="submit" class="btn btn-primary" name="buttom">Guardar</button>    
+                </form>
+                
+                {%endif%}
+            </div>
+            
+        {%endif%}
+        {%if step == 2%}
+            <div class="card", style="padding: 20px">
+                <div class="card-body">
+                    <h3 class="card-title">IP a las que respondera el DNS</h3>
+                    <p class="card-text">Agregue las ip's de las maquinas a las cuales el servidro dns resolvera solicitudes</p>
+                </div>
+                {%if current_user.is_authenticated %}            
+                <form action="{{url_for('page.dns_gest',paso = 2)}}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+                    <div class="row form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            {{ render_field(form_trus.ip, class='form-control',placeholder='IP confiable')}}
+                        </div>
+                    </div>                   
+                    <button type="submit" class="btn btn-primary" name="buttom">Guardar</button>    
+                </form>
+                <a href="{{url_for('page.dns_gest',paso = 3)}}" class="btn btn-secondary">Siguiente Paso</a>
+                {%endif%}
+            </div>
+            
+        {%endif%}
+        {%if step >= 3%}
+        <div class="card", style="padding: 20px">
+            <div class="card-body">
+                <h3 class="card-title">Configuracion</h3>
+                <p class="card-text">
+                    Seleccione la accion que guste ejecutar
+                </p>
+            </div>
+            {%if current_user.is_authenticated %}            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ver</th>
+                        <th scope="col">Borrar y Reiniciar configuracion</th>
+                        <th scope="col">Guardar y Cargar configuracion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td><a href="{{url_for('page.dns_config',name = 'guardada')}}" class="btn btn-primary"><i class="fas fa-eye"></i></a></td>
+                            <td><a href="{{url_for('page.dns_config',name = 'eliminar')}}" class="btn btn-primary"><i class="far fa-trash-alt"></i></a></td>
+                            <td><a href="{{url_for('page.dns_config',name = 'cargar')}}" class="btn btn-primary"><i class="fas fa-play"></i></a></td>
+                            
+                        </tr>  
+                </tbody>
+            </table>
+            {%endif%}
+        </div>
+            
+        {% endif %}
+
+        <div class="card", style="padding: 20px">
+            {%if current_user.is_authenticated %}
+                <a href="{{url_for('page.servers')}}" class="btn btn-primary">Regresar</a>
+            {%endif%}
+        </div>
+    {%endblock%}

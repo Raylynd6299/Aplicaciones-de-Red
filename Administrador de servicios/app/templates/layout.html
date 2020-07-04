@@ -1,0 +1,83 @@
+{%extends 'bootstrap/base.html'%}
+    {% block title%}
+        {{title}}
+    {% endblock %}
+
+    {% block navbar%}
+    {{super()}}
+            <link rel=StyleSheet href="{{url_for('static',filename='css/bootstrap.min.css')}}" TYPE="text/css" MEDIA=screen>
+            <link rel=StyleSheet href="{{url_for('static',filename='css/bootstrap-grid.min.css')}}" TYPE="text/css" MEDIA=screen>
+            <link rel=StyleSheet href="{{url_for('static',filename='css/bootstrap-reboot.min.css')}}" TYPE="text/css" MEDIA=screen>
+            <link rel=StyleSheet href="{{url_for('static',filename='css/all.css')}}" TYPE="text/css" MEDIA=screen>
+            <script type="text/javascript"src="{{url_for('static',filename='css/bootstrap.min.js')}}"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Administrador de servidores</a>
+                <div>
+                    <ul class="navbar-nav flex-row">
+                        <li class="nav-item {%if active == 'index'%}active{%endif%}">
+                            <a class="nav-link px-2" href="{{url_for('page.index')}}">Inicio</a>
+                        </li>
+                        {%if current_user.is_authenticated%}
+                            <li class="nav-item {%if active == 'servers'%}active{%endif%}">
+                                <a class="nav-link px-2" href="{{url_for('page.servers')}}">Servidores</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link px-2" href="{{url_for('page.logout')}}">Logout</a>
+                            </li>
+                        {%else%}
+                            <li class="nav-item {%if active == 'login'%}active{%endif%}">
+                                <a class="nav-link px-2" href="{{url_for('page.login')}}">Login</a>
+                            </li>
+                            
+                            <li class="nav-item {%if active == 'Register'%}active{%endif%}">
+                                <a class="nav-link px-2" href="{{url_for('page.register')}}">Register</a>
+                            </li>
+                        {%endif%}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    {% endblock %}
+
+    {% block content%}
+        <div style="{%if active == 'index'%}background-color: lightslategray;{%endif%} padding: 20px;">
+        <div class="container" style="{%if active == 'index'%}background-color: dimgray;{%endif%}border-radius: 20px;">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-1">
+                    {%with messages = get_flashed_messages(with_categories = True)%}
+                        {%if messages%}
+                            {%for category,message in messages%}
+                                {%if category == 'error' %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{message}}
+                                    </div>
+                                {%else%}
+                                    <div class="alert alert-success" role="alert">
+                                        {{message}}
+                                    </div>
+                                {%endif%}
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+                </div>
+            </div>
+                {%block container%}
+                {%endblock%}
+        </div>
+        </div>
+        {%if active == 'index'%}
+        <footer  style="color: oldlace; background-color: black;width: 100%;height: 110px; bottom:0;position: relative; text-align: center; ">
+            <blockquote>
+                <p>La ciencia es más que un simple conjunto de conocimientos: es una manera de pensar.</p>		
+                <footer class="blockquote-footer">Carl Sagan</footer>
+            </blockquote>
+            <i style="text-align: justify;">
+                Esta Pagina fue desarrollada con fin de la practica final de Redes 2
+            </i>
+        </footer>
+        {%endif%}
+    {% endblock %}

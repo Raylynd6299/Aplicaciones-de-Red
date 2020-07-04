@@ -1,0 +1,26 @@
+;
+; BIND reverse data file for local loopback interface
+;
+$TTL	604800
+@	IN	SOA	raypulido.com. admin.raypulido.com. (
+			      9		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+; name servers - NS records
+
+@	      	IN      NS      ns1.raypulido.com.
+;@		IN 	NS	ns2.raypulido.com.
+
+; PTR Records
+
+4.1	   	IN      	PTR     	ns1.raypulido.com. 	;192.168.1.4
+4.3	 	IN      	PTR    		ns2.raypulido.com.	;192.168.3.4  
+
+;2.1		IN		PTR		pc1.raypulido.com.	;192.168.1.2         
+;3.1		IN		PTR		pc2.raypulido.com.	;192.168.1.3
+
+4.2		IN		PTR		cli2.raypulido.com. 	;192.168.2.4
+4.4		IN 		PTR		cli1.raypulido.com.	;192.168.4.4

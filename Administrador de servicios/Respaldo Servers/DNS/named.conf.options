@@ -1,0 +1,35 @@
+acl "trusted" {
+	192.168.1.4;	#ns1 el localhost
+	192.168.3.4;	#ns2
+	192.168.4.4;	#cliente 1 host1 4.4
+	192.168.2.4;	#cliente 2 host2 2.4
+};
+options {
+	directory "/var/cache/bind";
+
+	recursion yes;
+	allow-recursion{ trusted;};
+	listen-on {192.168.1.4;};
+	allow-transfer {none;};	
+	
+	// If there is a firewall between you and nameservers you want
+	// to talk to, you may need to fix the firewall to allow multiple
+	// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+	// If your ISP provided one or more IP addresses for stable 
+	// nameservers, you probably want to use them as forwarders.  
+	// Uncomment the following block, and insert the addresses replacing 
+	// the all-0's placeholder.
+
+	forwarders {
+	 	192.168.3.4;
+	 };
+
+	//========================================================================
+	// If BIND logs error messages about the root key being expired,
+	// you will need to update your keys.  See https://www.isc.org/bind-keys
+	//========================================================================
+	dnssec-validation auto;
+
+	listen-on-v6 { any; };
+};

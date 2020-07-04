@@ -1,0 +1,41 @@
+{% extends 'layout.html'%}
+
+
+    {%block container%}
+        
+        <h1 style="text-align: center; color: aliceblue; margin: 10px;">Administrador de Servidores</h1>
+        <img src="{{url_for('static',filename='imagenes/server.jpg')}}" class="img-fluid rounded mx-auto d-block"  alt="Servidor">
+    
+        <br>
+        <div style="text-align: center;"><p style="font-family: 'Roboto Slab', serif; color: blanchedalmond;">
+            <p style="color: aliceblue;">Esta pagina esta destinada para administrar los servidores de la maquina anfitrion</p>
+            <br>
+            <p style="color: aliceblue;">Esta practica fue desarrollada en colaboracion de:</p>
+            <br>
+            <div class="row">
+            <div class="col-md-6" style="float:left">
+                <div class="card" style="padding: 20px;border-radius: 20px;">
+                    <img src="{{url_for('static',filename='imagenes/ms.png')}}" alt="DANY" class="card-img-top center-block"style="height: auto;width: 100%;" >
+                    <div class="card-body">
+                        <h4 class="card-title">Cortes Castillo Daniela</h4>
+                        <p class="card-text">Miembro del Equipo desarrollador</p>
+        
+                    </div>
+                </div>
+            </div>
+             
+             <div class="col-md-6" style="float:right">
+                <div class="card" style="padding: 20px;border-radius: 20px;">
+                    <img src="{{url_for('static',filename='imagenes/mr.jpg')}}" alt="RAY" class="card-img-top">
+                    <div class="card-body">
+                        <h4 class="card-title">Pulido Bejarano Raymundo</h4>
+                        <p class="card-text">Miembro del Equipo desarrollador</p>
+                    </div>
+                </div>
+             </div>
+            </div>
+            <br>
+        </div>
+    
+
+    {%endblock%}
